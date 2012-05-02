@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the PDF print feature.
+ */
+
+include_once('pdfprint.features.inc');
