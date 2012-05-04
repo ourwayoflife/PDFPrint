@@ -4,4 +4,19 @@
  * Code for the PDF print feature.
  */
 
+define('PDFPRINT_DEFAULT_TOOL', 'sites/all/libraries/wkhtmltopdf/wkhtmltopdf-amd64');
+
 include_once('pdfprint.features.inc');
+
+function pdfprint_install() {
+  //make it executable
+  drupal_chmod(variable_get('print_pdf_pdf_tool'), 0755);
+  drupal_chmod(PDFPRINT_DEFAULT_TOOL, 0755);
+
+  $pdfPrintPath = drupal_get_path('module', 'pdfprint');
+  $currentTheme = variable_get('theme_default','none');
+  $themePath = drupal_get_path('theme', $currentTheme);
+  file_unmanaged_copy($pdfPrintPath . '/print--pdf.tpl.php' , $themePath . '/templates/print--pdf.tpl.php', FILE_EXISTS_REPLACE);
+
+  return;
+}
